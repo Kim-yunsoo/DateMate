@@ -94,3 +94,41 @@ def display_graph():
         x += bar_width + bar_spacing
 
     canvas.configure(scrollregion=canvas.bbox("all"))
+
+
+def search_tourism_location():
+    # Google Maps API 요청을 위한 API 키 설정
+    api_key = 'AIzaSyApjfiZq66Iv1zilLZBdYPrFRsJqLEAbXM'  # 사용자 고유의 API 키로 변경해야 합니다.
+
+    # 검색어 가져오기
+    keyword = selected_item
+
+    # API 요청 URL 생성
+    url = f'https://maps.googleapis.com/maps/api/staticmap?center={keyword}&zoom={zoom}&size=800x600&markers=color:red%7C{keyword}&key={api_key}'
+
+    # API 요청 보내기
+    response = requests.get(url)
+
+    try:
+        # 이미지 데이터 받기
+        image_data = response.content
+
+        # 이미지 열기
+        image = Image.open(BytesIO(image_data))
+
+        # 이미지 크기 조정
+        image = image.resize((420, 245), Image.ANTIALIAS)
+
+        # 이미지를 tkinter에서 표시할 수 있는 형식으로 변환
+        photo = ImageTk.PhotoImage(image)
+
+        global canvas
+        if (canvas):
+            canvas.pack_forget()
+
+        # 이미지 라벨 생성 및 표시
+        image_label.configure(image=photo)
+        image_label.image = photo
+
+    except Exception as e:
+        print(f'Error: {e}')
