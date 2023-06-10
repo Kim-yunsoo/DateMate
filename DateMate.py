@@ -338,3 +338,18 @@ def telegram_button_clicked():
             bot.sendMessage(chat_id=chat_id, text=f"{city_name}에 대한 맛집 정보를 찾을 수 없습니다.")
 
     MessageLoop(bot, handle_message).run_as_thread()
+
+root = Tk()
+root.geometry("740x400")  # 가로 800, 세로 400 크기로 설정
+root.title("Date Mate")
+root.configure(background="#D9E5FF")
+
+# 상단 프레임
+topFrame = Frame(root)
+topFrame.pack(fill="both", side="top")
+topFrame.configure(background="#D9E5FF")
+
+# 중간 프레임
+midFrame = Frame(root, width=200)
+midFrame.pack(fill="x", side="top")
+midFrame.configure(background="#D9E5FF")
