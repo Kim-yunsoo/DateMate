@@ -274,3 +274,67 @@ def parse_data(xml_data):
     except (ValueError, ET.ParseError) as e:
         print(f'XML 파싱 오류 발생: {e}')
         return []  # 빈 리스트 반환
+    
+
+def telegram_button_clicked():
+    bot.sendMessage(telegram_chat_id, text='안녕하세요! DataMate입니다. 도시명을 입력해주세요 :)')
+    
+    def handle_message(msg):
+        content_type, chat_type, chat_id = telepot.glance(msg)
+        
+        if content_type == 'text':
+            command = msg['text']
+            city_name = command.strip()
+            send_tourism_locations(chat_id, city_name)
+            send_food_locations(chat_id, city_name)
+
+    def send_tourism_locations(chat_id, city_name):
+        locations = []
+
+        # 관광지 정보 가져오기
+        for url in urls[:3]:
+            xml_data = fetch_data(url)
+            if xml_data:
+                data = parse_data(xml_data)
+                if data:
+                    for info in data:
+                        if city_name in info.get('SM_RE_ADDR', '') or city_name in info.get('REFINE_ROADNM_ADDR', ''):
+                            if 'TURSM_INFO_NM' in info:
+                                locations.append(info['TURSM_INFO_NM'])
+                            elif 'RESTRT_NM' in info:
+                                locations.append(info['RESTRT_NM'])
+
+        # 관광지 정보 전송
+        if locations:
+            message = f"{city_name}에 있는 관광지 정보:\n"
+            for location in locations:
+                message += f"- {location}\n"
+
+            bot.sendMessage(chat_id=chat_id, text=message)
+        else:
+            bot.sendMessage(chat_id=chat_id, text=f"{city_name}에 대한 관광지 정보를 찾을 수 없습니다.")
+
+    def send_food_locations(chat_id, city_name):
+        locations = []
+
+        # 맛집 정보 가져오기
+        url = 'https://openapi.gg.go.kr/PlaceThatDoATasteyFoodSt?KEY=75be4b8be97f4ecaa8fdef12faeba951&pIndex=1&pSize=1000'
+        xml_data = fetch_data(url)
+        if xml_data:
+            data = parse_data(xml_data)
+            if data:
+                for info in data:
+                    if city_name in info.get('SM_RE_ADDR', '') or city_name in info.get('REFINE_ROADNM_ADDR', ''):
+                        locations.append(info['RESTRT_NM'])
+
+        # 맛집 정보 전송
+        if locations:
+            message = f"{city_name}에 있는 맛집 정보:\n"
+            for location in locations:
+                message += f"- {location}\n"
+
+            bot.sendMessage(chat_id=chat_id, text=message)
+        else:
+            bot.sendMessage(chat_id=chat_id, text=f"{city_name}에 대한 맛집 정보를 찾을 수 없습니다.")
+
+    MessageLoop(bot, handle_message).run_as_thread()
