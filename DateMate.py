@@ -132,3 +132,36 @@ def search_tourism_location():
 
     except Exception as e:
         print(f'Error: {e}')
+
+
+def select_item(event):
+    global MAP, GRAPE
+    global selected_item
+    global canvas
+
+    MAP=True
+    GRAPE=False
+    # Get the selected item from the info_listbox
+    selected_index = info_listbox.curselection()
+    if selected_index and MAP==True:
+        if canvas:
+            canvas.delete("all")
+        image_label.pack(side="left", padx=0, pady=0, anchor="nw")
+        selected_item = info_listbox.get(selected_index)
+        search_tourism_location()  # 선택된 항목에 대한 지도 보기 함수 호출
+
+
+def search():
+    global city_name, is_city
+
+    # keyword =entry.get()  # 검색어 입력란에서 키워드 가져오기
+    result = spam.strlen(entry.get())
+    keyword =result  # 검색어 입력란에서 키워드 가져오기
+
+    # keyword=userInput
+    if keyword in city:
+        is_city = True
+        city_name = keyword
+    else:
+        is_city = False
+    update_listbox()
