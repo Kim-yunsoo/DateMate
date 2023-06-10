@@ -194,3 +194,17 @@ def update_listbox():
                         elif city_name != "" and is_city:
                             if city_name in info['SM_RE_ADDR']:
                                 info_listbox.insert(END, f"{info['TURSM_INFO_NM']}")
+
+
+def food_button_clicked():
+    global urls, FOOD
+    FOOD = True
+    # 새로운 XML 데이터를 가져오기 위해 URL을 업데이트
+    urls = [
+        # 음식점 데이터
+        'https://openapi.gg.go.kr/PlaceThatDoATasteyFoodSt?KEY=75be4b8be97f4ecaa8fdef12faeba951&pIndex=1&pSize=1000'
+    ]
+
+    #selected_item = ""  # 선택된 항목 초기화
+    update_listbox()  # 리스트박스 업데이트
+    #search_tourism_location()  # 지도 보기 업데이트
