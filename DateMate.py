@@ -165,3 +165,32 @@ def search():
     else:
         is_city = False
     update_listbox()
+
+def update_listbox():
+    global urls
+    info_listbox.delete(0, END)  # 기존 아이템 모두 삭제
+    for url in urls:
+        xml_data = fetch_data(url)
+        if xml_data:
+            data = parse_data(xml_data)
+            if data:
+                for info in data:
+                    if FOOD:
+                        #info_listbox.insert(END, f"{info['RESTRT_NM']}")
+                        if city_name == "" and is_city:
+                            info_listbox.insert(END, f"{info['RESTRT_NM']}")
+                            for name in city:
+                                if name in info['REFINE_ROADNM_ADDR']:
+                                    city_num[city.index(name)] += 1
+                        elif city_name != "" and is_city:
+                            if city_name in info['REFINE_ROADNM_ADDR']:
+                                info_listbox.insert(END, f"{info['RESTRT_NM']}")
+                    else:
+                        if city_name == "" and is_city:
+                            info_listbox.insert(END, f"{info['TURSM_INFO_NM']}")
+                            for name in city:
+                                if name in info['SM_RE_ADDR']:
+                                    city_num[city.index(name)] += 1
+                        elif city_name != "" and is_city:
+                            if city_name in info['SM_RE_ADDR']:
+                                info_listbox.insert(END, f"{info['TURSM_INFO_NM']}")
