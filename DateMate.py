@@ -248,3 +248,29 @@ def zoom_out():
     if zoom > 1:
         zoom -= 1
     search_tourism_location()
+
+def parse_data(xml_data):
+    try:
+        root = ET.fromstring(xml_data)
+        rows = root.findall('.//row')
+        data = []
+        for row in rows:
+            tursm_info_nm_element = row.find('TURSM_INFO_NM')
+            restrt_info_nm_element = row.find('RESTRT_NM')
+            if restrt_info_nm_element is not None and restrt_info_nm_element.text is not None:
+                info = {
+                    'RESTRT_NM': restrt_info_nm_element.text,
+                    'REFINE_ROADNM_ADDR': row.find('REFINE_ROADNM_ADDR').text,
+                }
+                data.append(info)
+            elif tursm_info_nm_element is not None and tursm_info_nm_element.text is not None:
+                info = {
+                    'TURSM_INFO_NM': tursm_info_nm_element.text,
+                    'SM_RE_ADDR': row.find('SM_RE_ADDR').text,
+                    'TELNO': row.find('TELNO').text if row.find('TELNO') is not None else ''
+                }
+                data.append(info)
+        return data  # 리스트 형태로 데이터 반환
+    except (ValueError, ET.ParseError) as e:
+        print(f'XML 파싱 오류 발생: {e}')
+        return []  # 빈 리스트 반환
