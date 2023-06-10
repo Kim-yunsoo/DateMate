@@ -373,3 +373,33 @@ search_button.pack(side="left", padx=0, pady=7, anchor="nw")  # 왼쪽 상단 �
 image = Image.open("그래프.png")
 image = image.resize((70, 70), Image.ANTIALIAS)
 photo_grape = ImageTk.PhotoImage(image)
+
+# 막대그래프 UI
+grape_button = Button(root,  image=photo_grape, width=80, height=80, command=grape_button_clicked, bg="white",borderwidth=5)
+grape_button.pack(side="right", padx=10, pady=10, anchor="nw")  # 오른쪽 하단 정렬
+
+image = Image.open("텔레그램.png")
+image = image.resize((70, 70), Image.ANTIALIAS)
+photo_tele = ImageTk.PhotoImage(image)
+
+# 텔레그램 UI
+
+
+Tele_button = Button(root, image=photo_tele, width=80, height=80, bg="white",borderwidth=5, command=telegram_button_clicked)
+Tele_button.pack(side="right", padx=10, pady=10, anchor="nw")  # 왼쪽 상단 정렬
+
+image = Image.open("맛집.png")
+image = image.resize((70, 70), Image.ANTIALIAS)
+photo_Food = ImageTk.PhotoImage(image)
+
+# 맛집리스트 UI
+Food_button = Button(root, image=photo_Food, width=80, height=80, bg="white",borderwidth=5, command=food_button_clicked)
+Food_button.pack(side="right", padx=10, pady=10, anchor="nw")  # 왼쪽 상단 정렬
+
+image = Image.open("관광지.png")
+image = image.resize((70, 70), Image.ANTIALIAS)
+photo_Spot = ImageTk.PhotoImage(image)
+
+# 장소리스트 UI
+Spot_button = Button(root, image=photo_Spot, width=80, height=80, bg="white",borderwidth=5, command=spot_button_clicked)
+Spot_button.pack(side="right", padx=10, pady=10, anchor="nw")  # 왼쪽 상단 정렬
