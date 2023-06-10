@@ -403,3 +403,20 @@ photo_Spot = ImageTk.PhotoImage(image)
 # 장소리스트 UI
 Spot_button = Button(root, image=photo_Spot, width=80, height=80, bg="white",borderwidth=5, command=spot_button_clicked)
 Spot_button.pack(side="right", padx=10, pady=10, anchor="nw")  # 왼쪽 상단 정렬
+
+
+
+# 리스트 박스 생성
+info_listbox = Listbox(midFrame, width=40, height=15)
+info_listbox.pack(side="left", padx=5, pady=0, anchor="nw")  # 상단 정렬
+
+# 스크롤바 생성
+scrollbar = Scrollbar(midFrame)
+scrollbar.pack(side="left", fill=Y)
+
+# 스크롤바와 리스트 박스 연결
+scrollbar.config(command=info_listbox.yview)
+
+canvas = Canvas(midFrame,width=50, height=15)
+canvas.pack(side = "left", fill="both", expand=True)
+canvas.configure(background="white")
