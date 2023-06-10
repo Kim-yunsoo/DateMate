@@ -50,3 +50,47 @@ city_num=[0,0,0,0,0,
           0,0,0,0,0,
           0
           ]
+
+def grape_button_clicked():
+    global MAP, GRAPE, image_label
+    MAP = False
+    GRAPE = True
+    if GRAPE==True:
+        if image_label:
+            # image_label.destroy()
+            image_label.pack_forget()  # 이미지 라벨 숨기기
+        # image_label.configure(image=None)
+        display_graph()
+
+def display_graph():
+    global city, city_num
+    # Tkinter 인터페이스 생성
+    # graph_frame = ttk.Frame(midFrame)
+    # graph_frame.pack(side=tk.BOTTOM, padx=0, pady=0, fill=tk.BOTH, expand=True)
+    # height =0
+    # Canvas 생성
+    global canvas
+
+    # city_num을 기준으로 상위 5개 도시 선택
+    sorted_cities = [c for _, c in sorted(zip(city_num, city), reverse=True)]
+    sorted_city_nums = sorted(city_num, reverse=True)
+    top_cities = sorted_cities[:5]
+    top_city_nums = sorted_city_nums[:5]
+    
+    canvas.pack(side = "left", fill="both", expand=True)
+    canvas.configure(background="white")
+
+    # 그래프 그리기
+    bar_width = 50
+    bar_spacing = 20
+    max_value = max(top_city_nums)
+    x_start = 40
+    x = x_start
+    color_list=['#FFD8D8','#FAECC5','#E4F7BA','#D4F4FA','#DAD9FF']
+    for i in range(len(top_cities)):
+        height = (top_city_nums[i] / max_value) * (canvas.winfo_height() - 50)
+        canvas.create_text(x + bar_width / 2, canvas.winfo_height() - 30, text=top_cities[i], angle=45, anchor='ne')
+        canvas.create_rectangle(x, canvas.winfo_height() - height - 20, x + bar_width, canvas.winfo_height() - 30, fill=color_list[i])
+        x += bar_width + bar_spacing
+
+    canvas.configure(scrollregion=canvas.bbox("all"))
