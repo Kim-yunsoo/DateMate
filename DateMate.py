@@ -420,3 +420,31 @@ scrollbar.config(command=info_listbox.yview)
 canvas = Canvas(midFrame,width=50, height=15)
 canvas.pack(side = "left", fill="both", expand=True)
 canvas.configure(background="white")
+
+
+
+# 이미지 라벨 생성
+image_label = Label(midFrame)
+#image_label = Listbox(midFrame, width=50, height=15)
+image_label.pack(side="left", padx=0, pady=0, anchor="nw")
+
+image = Image.open("줌인.png")
+image = image.resize((35, 35), Image.ANTIALIAS)
+photo_in = ImageTk.PhotoImage(image)
+
+
+zoom_in_button = Button(topFrame, image=photo_in, command=zoom_in, bg="#EBF7FF")
+zoom_in_button.pack(side="right", padx=5, pady=3, anchor="nw")
+
+image = Image.open("줌아웃.png")
+image = image.resize((35, 35), Image.ANTIALIAS)
+photo_out = ImageTk.PhotoImage(image)
+
+zoom_out_button = Button(topFrame, image=photo_out, command=zoom_out, bg="#EBF7FF")
+zoom_out_button.pack(side="right", padx=5, pady=3, anchor="nw")
+      
+
+info_listbox.bind('<<ListboxSelect>>', select_item)
+zoom = 15
+update_listbox()
+root.mainloop()
