@@ -353,3 +353,23 @@ topFrame.configure(background="#D9E5FF")
 midFrame = Frame(root, width=200)
 midFrame.pack(fill="x", side="top")
 midFrame.configure(background="#D9E5FF")
+
+
+
+# 검색 입력란
+search_label = Label(topFrame, text="경기도 시 검색 ")
+search_label.pack(side="left", padx=0, pady=10, anchor="nw")  # 왼쪽 상단 정렬
+entry = Entry(topFrame, width=30)  # 너비를 50으로 설정
+entry.pack(side="left", padx=0, pady=10, anchor="nw")  # 왼쪽 상단 정렬
+
+# 검색 버튼
+image = Image.open("검색.png")
+image = image.resize((15, 15), Image.ANTIALIAS)
+photo_search = ImageTk.PhotoImage(image)
+
+search_button = Button(topFrame,image=photo_search, width=17, height=17, command=search)
+search_button.pack(side="left", padx=0, pady=7, anchor="nw")  # 왼쪽 상단 정렬
+
+image = Image.open("그래프.png")
+image = image.resize((70, 70), Image.ANTIALIAS)
+photo_grape = ImageTk.PhotoImage(image)
