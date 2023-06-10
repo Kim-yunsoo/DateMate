@@ -227,3 +227,24 @@ def spot_button_clicked():
     #selected_item = ""  # 선택된 항목 초기화
     update_listbox()  # 리스트박스 업데이트
     #search_tourism_location()  # 지도 보기 업데이트
+
+
+def fetch_data(url):
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.content
+    except requests.exceptions.HTTPError as e:
+        print(f'HTTP 오류 발생: {e}')
+        return None
+
+def zoom_in():
+    global zoom
+    zoom += 1
+    search_tourism_location()
+
+def zoom_out():
+    global zoom
+    if zoom > 1:
+        zoom -= 1
+    search_tourism_location()
