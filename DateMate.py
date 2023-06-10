@@ -208,3 +208,22 @@ def food_button_clicked():
     #selected_item = ""  # 선택된 항목 초기화
     update_listbox()  # 리스트박스 업데이트
     #search_tourism_location()  # 지도 보기 업데이트
+
+def spot_button_clicked():
+    global urls, FOOD
+    FOOD = False
+    # 새로운 XML 데이터를 가져오기 위해 URL을 업데이트
+    urls = [
+          #자연관광지
+    'https://openapi.gg.go.kr/CTST?KEY=75be4b8be97f4ecaa8fdef12faeba951&pIndex=1&pSize=1000',
+
+    #테마관광지
+    'https://openapi.gg.go.kr/TTST?KEY=75be4b8be97f4ecaa8fdef12faeba951&pIndex=1&pSize=1000',
+
+    #체험관광지
+    'https://openapi.gg.go.kr/ETST?KEY=75be4b8be97f4ecaa8fdef12faeba951&pIndex=1&pSize=1000'
+    ]
+
+    #selected_item = ""  # 선택된 항목 초기화
+    update_listbox()  # 리스트박스 업데이트
+    #search_tourism_location()  # 지도 보기 업데이트
