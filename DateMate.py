@@ -277,6 +277,8 @@ def parse_data(xml_data):
     
 
 def telegram_button_clicked():
+
+
     bot.sendMessage(telegram_chat_id, text='안녕하세요! DataMate입니다. 도시명을 입력해주세요 :)')
     
     def handle_message(msg):
@@ -290,7 +292,16 @@ def telegram_button_clicked():
 
     def send_tourism_locations(chat_id, city_name):
         locations = []
+        urls = [
+          #자연관광지
+        'https://openapi.gg.go.kr/CTST?KEY=75be4b8be97f4ecaa8fdef12faeba951&pIndex=1&pSize=1000',
 
+        #테마관광지
+        'https://openapi.gg.go.kr/TTST?KEY=75be4b8be97f4ecaa8fdef12faeba951&pIndex=1&pSize=1000',
+
+        #체험관광지
+        'https://openapi.gg.go.kr/ETST?KEY=75be4b8be97f4ecaa8fdef12faeba951&pIndex=1&pSize=1000'
+        ]
         # 관광지 정보 가져오기
         for url in urls[:3]:
             xml_data = fetch_data(url)
