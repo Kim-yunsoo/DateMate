@@ -31,8 +31,8 @@ selected_item = ""
 
 is_city = True
 
-telegram_token = "6076591511:AAHuGtWCzufAn2rLba3WzFKleqD8o8VmXl4"
-telegram_chat_id ="5955730862"
+telegram_token = "" 
+telegram_chat_id =""
 
 bot = telepot.Bot(token=telegram_token)
 
@@ -98,7 +98,7 @@ def display_graph():
 
 def search_tourism_location():
     # Google Maps API 요청을 위한 API 키 설정
-    api_key = 'AIzaSyApjfiZq66Iv1zilLZBdYPrFRsJqLEAbXM'  # 사용자 고유의 API 키로 변경해야 합니다.
+    api_key = ''  # 사용자 고유의 API 키로 변경해야 합니다.
 
     # 검색어 가져오기
     keyword = selected_item
